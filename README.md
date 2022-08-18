@@ -1,2 +1,2 @@
-# krnl-helper.p
+# krnl-helper.py
 In development
