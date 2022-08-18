@@ -7,7 +7,8 @@ from zipfile import ZipFile
 options_list='''(1) Install krnl beta
 (2) unintall krnl beta
 (3) install requirements
-(4) exit'''
+(4) fix vpn issue
+(5) exit'''
 def ping(host):return len(popen("ping -n 1 "+host).read().split("\n"))!=2
 def get_exact_path(old_path):return popen("echo " + old_path).read()
 def show_options(error=""):
@@ -26,7 +27,7 @@ def run_option(option=False):
             install_krnl_beta()
         elif option==3:
             install_requirements()
-        if option==4:
+        if option==5:
             exit()
     else:
         show_options("\nINVALID OPTION SELECTED, please try again")
@@ -40,12 +41,14 @@ def install_krnl_beta():
         print("You dont really need to use this way to install the beta, just use krnl_beta.exe from krnl.place\nI'll download and run it anyways for you!")
         download("https://k-storage.com/krnl_beta.exe", "krnl_beta.exe")
     elif ping("https://benomat3000.web.app/"):
-        print("Seems like you can't reach k-storage.com. We will use a different source for the download to fix this.\nYou can also join my discord discord.gg/hPtMfVvCqJ and download a version of the beta that will work for you.!")
+        print("Seems like you can't reach k-storage.com. We will use a different source for the download to fix this.")
         krnldir=get_exact_path('%appdata%\\Krnl\\')
         mkdir(krnldir)
         download("https://benomat3000.web.app/krnldownloads/krnlbeta.zip",krnldir+"download.zip")
         ZipFile.extractall(krnldir+"download.zip")
         remove(krnldir+"download.zip")
+        print("Successfully downloaded!");sleep(5);show_options()
+    else: print("Seems like you can't reach k-storage.com or my download. Please use the zip from pins in #user-help. Press Enter to return to the options"); input(); show_options()
 def install_requirements():
     mkdir("temp")
     print("Downloading installers")
